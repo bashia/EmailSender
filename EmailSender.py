@@ -3,19 +3,14 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+import senderinfo
+
 class Person:
 
     def __init__(self,lastname,firstname,email):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
-
-class Sender:
-
-    def __init__(self,name,addr,passwd):
-        self.name = name
-        self.address = addr
-        self.password = passwd
 
 def loadpeople(filename): #'emails.csv'
     people = []
@@ -69,8 +64,7 @@ def sendmail(sender,people,html,text,subject): #dougmcarthur.sfu@gmail.com,
         server.sendmail(fromaddr, toaddrs, htmltxt) #Ignoring smtplib message format for now- just get a plaintext out!
     server.quit()
 
-FiletoString("userinfo")
-
+sender = senderinfo.sender
 html = FiletoString("message.html")
 text = FiletoString("messagetext.txt")
 people = loadpeople("emails.csv")
